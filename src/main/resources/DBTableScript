@@ -1,0 +1,25 @@
+CREATE TABLE Users(
+id serial PRIMARY KEY,
+firstName varchar(50),
+lastName varchar(50),
+userName varchar(50) UNIQUE NOT null,
+email varchar(50) UNIQUE NOT null,
+profilePic varchar(200),
+"password" varchar (50) NOT NULL
+);
+
+CREATE TABLE Posts(
+id serial PRIMARY KEY,
+message varchar(150) NOT NULL,
+attachedPicture varchar(200),
+submitted timestamp DEFAULT now(),
+likes int,
+author int REFERENCES Users(id)
+);
+
+CREATE TABLE UserPost(
+userId int REFERENCES Users(id),
+postId int REFERENCES Posts(id),
+PRIMARY KEY(userId, postId)
+);
+
