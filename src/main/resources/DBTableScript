@@ -13,13 +13,19 @@ id serial PRIMARY KEY,
 message varchar(150) NOT NULL,
 attachedPicture varchar(200),
 submitted timestamp DEFAULT now(),
-likes int,
-author int REFERENCES Users(id)
+likes int DEFAULT 0,
+author int REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+originalPostId int NULL REFERENCES Posts(id) ON DELETE CASCADE ON UPDATE CASCADE,
+commentedOn timestamp
 );
 
 CREATE TABLE UserPost(
-userId int REFERENCES Users(id),
-postId int REFERENCES Posts(id),
+userId int REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+postId int REFERENCES Posts(id) ON DELETE CASCADE ON UPDATE CASCADE,
 PRIMARY KEY(userId, postId)
 );
 
+
+DROP TABLE userpost;
+DROP TABLE posts;
+DROP TABLE users;
